@@ -35,7 +35,7 @@ for _ in range(ROCKETS):
 # Define colors
 white = (255, 255, 255)
 black = (0, 0, 0)
-redObject = pygame.Rect(100, 100, 100, 100)
+redObject = pygame.Rect(100, 100, 200, 200)
 objects.append(redObject)
 # Main game loop
 running = True
@@ -52,6 +52,8 @@ while running:
         pygame.draw.rect(screen, colors[i], (rocket.xpos, rocket.ypos, rocket.breadth, rocket.length))
         rocket.move()
         rocket.boundaryCheck(width, height, damp)
+        # for object in objects:
+        rocket.objectCheck((100, 100), (100, 100), damp)
         
     pygame.time.delay(delay)
     # Update the display
