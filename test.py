@@ -3,21 +3,23 @@ import sys
 import numpy as np
 from random import choice, randint
 from rocket import Rocket
+import matplotlib.pyplot as plt
+
 delay = 30
 # Define the screen dimensions
 width = 800
 height = 600
 length = 20
-breadth = 5
-ayrange = axrange = np.arange(-0.01, 0.005, 0.0001, dtype=float)
-vyrange = vxrange = np.arange(-1, 1, 0.1, dtype=float)
+breadth = 4
+ayrange = axrange = np.arange(-0.01, 0.01, 0.0001, dtype=float)
+vyrange = vxrange = np.arange(-10, 10, 0.1, dtype=float)
 xrange = np.arange(0, width, 10, dtype=float)
 xyange = np.arange(height/2, height, 10, dtype=float)
-ROCKETS = 20
-colors = [(randint(0, 255), randint(0, 255), randint(0, 255)) for _ in range(ROCKETS)]
+ROCKETS = 50
 damp = 0.8
 rockets = []
 objects = []
+
 # Initialize Pygame
 pygame.init()
 
@@ -35,8 +37,8 @@ for _ in range(ROCKETS):
 # Define colors
 white = (255, 255, 255)
 black = (0, 0, 0)
-redObject = pygame.Rect(100, 100, 200, 200)
-objects.append(redObject)
+averageAgeList = []
+
 # Main game loop
 running = True
 while running:
@@ -46,19 +48,32 @@ while running:
 
     # Clear the screen with a white background
     screen.fill(white)
-    pygame.draw.rect(screen, "red", redObject)
+    if len(rockets) > 0:
+        averageAge = round(sum(rocket.age for rocket in rockets)/len(rockets),2)
+        averageAgeList.append(averageAge)
+        oldest = max(rocket.age for rocket in rockets)
+        youngest = min(rocket.age for rocket in rockets)
+        print(f"Age Mean: {averageAge}\tOldest : {oldest}\tyoungest : {youngest}\tPopulation Size: {len(rockets)}")
+
     for i, rocket in enumerate(rockets):
         # Draw on the canvas (for example, a red rectangle)
-        pygame.draw.rect(screen, colors[i], (rocket.xpos, rocket.ypos, rocket.breadth, rocket.length))
+        try:
+            pygame.draw.rect(screen, (rocket.red, rocket.green, rocket.blue),
+            (rocket.xpos, rocket.ypos, rocket.breadth, rocket.length))
+        except:
+            print(f"Exception : {(rocket.red, rocket.green, rocket.blue)}")
+
         rocket.move()
         rocket.boundaryCheck(width, height, damp)
-        # for object in objects:
-        rocket.objectCheck((100, 100), (100, 100), damp)
+        if rocket.red == 255:
+            rockets.remove(rocket)
         
     pygame.time.delay(delay)
     # Update the display
     pygame.display.flip()
 
+plt.plot(list(range(len(averageAgeList))), averageAgeList)
+plt.show()
 # Quit Pygame
 pygame.quit()
 sys.exit()
