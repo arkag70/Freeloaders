@@ -1,5 +1,5 @@
 from math import floor
-
+import pygame
 
 AGE=1
 DROP=50
@@ -19,39 +19,20 @@ class Rocket:
         self.red = 0
         self.green = 0
         self.blue = 255
+        self.rect = pygame.Rect(x, y, b, l)
 
     def move(self):
 
-        self.xpos += self.xvel
-        self.ypos += self.yvel
+        self.rect.x += self.xvel
+        self.rect.y += self.yvel
 
         self.xvel += self.xacc
         self.yvel += self.yacc
 
     def boundaryCheck(self, canvaswidth, canvasheight, damp):
-        if(self.xpos < 0 or self.xpos > (canvaswidth - self.breadth)):
+        if(self.rect.x < 0 or self.rect.x > (canvaswidth - self.breadth)):
             self.xrev(damp)
-        if(self.ypos < 0 or self.ypos > (canvasheight - self.length)):
-            self.yrev(damp)
-    
-    def objectCheck(self, position, dimension, damp):
-        x,y = position
-        width,height = dimension
-
-        #object on left
-        if (self.ypos >= y and self.ypos <= (y + height)) and self.xpos <= (x+width):
-            self.lifespan-=1
-            self.xrev(damp)
-        #object on right
-        if (self.ypos >= y and self.ypos <= (y + height)) and (self.xpos + self.breadth) > (x):
-            self.lifespan-=1
-            self.xrev(damp)
-
-        #object on top
-        if (self.xpos >= x and self.xpos <= (x + width)) and self.ypos <= (y+height):
-            self.yrev(damp)
-        #object on bottom
-        if (self.xpos >= x and self.xpos <= (x + width)) and (self.ypos + self.length) > y:
+        if(self.rect.y < 0 or self.rect.y > (canvasheight - self.length)):
             self.yrev(damp)
 
     def onCollision(self):
