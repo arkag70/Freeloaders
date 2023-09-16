@@ -26,10 +26,9 @@ if __name__ == "__main__":
     pygame.display.set_caption("Pygame Canvas")
     for _ in range(FREELOADERS):
         freeloaders.append(Freeloader(length, breadth, 
-                    (width/2), (height/2), 
-                    choice(vxrange), choice(vyrange), 
-                    choice(axrange), choice(ayrange)
-                ))
+            (choice(getRange(xposParams))), choice(getRange(yposparams)), 
+            choice(getRange(veclParams)), choice(getRange(veclParams)), 
+            choice(getRange(accParams)), choice(getRange(accParams))))
 
     # Main game loop
     running = True
@@ -51,7 +50,7 @@ if __name__ == "__main__":
             youngest = min(freeloader.age for freeloader in freeloaders)
             print(f'''Iteration : {iteration}\tMean-age: {averageAge}\tOldest : {oldest}\tyoungest : {youngest}\tPopulation Size: {populationSize}''')
             
-        if populationSize < MIN_SIZE_POPULATION:
+        if populationSize < MIN_POPULATION_SIZE:
             break
 
         for i, freeloader in enumerate(freeloaders):

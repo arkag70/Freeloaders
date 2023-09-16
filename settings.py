@@ -1,15 +1,21 @@
 import numpy as np
 # Define the screen dimensions
+
+def getRange(params):
+    start, stop, step = params
+    return np.arange(start, stop, step, dtype=float)
+
 width = 800
 height = 600
 length = 20
 breadth = 5
-ayrange = axrange = np.arange(-0.01, 0.01, 0.0001, dtype=float)
-vyrange = vxrange = np.arange(-10, 10, 0.1, dtype=float)
-xrange = np.arange(0, width, 10, dtype=float)
-xyange = np.arange(height/2, height, 10, dtype=float)
-FREELOADERS = 400
-MIN_SIZE_POPULATION = 0.1 * FREELOADERS
+
+accParams = (-0.01, 0.01, 0.0001)
+veclParams = (-5, 5, 0.01)
+xposParams = (0, width, 10)
+yposparams = (height/2, height, 10)
+FREELOADERS = 1000
+MIN_POPULATION_SIZE = 0.05 * FREELOADERS
 damp = 0.8
 freeloaders = []
 objects = []
