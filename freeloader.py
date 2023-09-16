@@ -1,9 +1,8 @@
-from math import floor
 import pygame
 
 AGE=1
 DROP=50
-class Rocket:
+class Freeloader:
 
     def __init__(self, l, b, x, y, vx, vy, ax, ay) -> None:
         
