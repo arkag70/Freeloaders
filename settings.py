@@ -11,11 +11,11 @@ length = 20
 breadth = 5
 
 accParams = (-0.01, 0.01, 0.0001)
-veclParams = (-5, 5, 0.01)
+veclParams = (-15, 15, 0.01)
 xposParams = (0, width, 10)
-yposparams = (height/2, height, 10)
-FREELOADERS = 1000
-MIN_POPULATION_SIZE = 0.05 * FREELOADERS
+yposparams = (height/4, height, 10)
+FREELOADERS = 500
+MIN_POPULATION_SIZE = 0.3 * FREELOADERS
 damp = 0.8
 freeloaders = []
 objects = []
